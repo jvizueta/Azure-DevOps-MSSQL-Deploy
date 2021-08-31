@@ -13,7 +13,7 @@ stages:
   displayName: 'Upgrade RS'
   jobs:
   - job: dbm_upgrade_rs_cmd
-    displayName: 'DBm Upgrade RS Cmd'
+    displayName: 'RS'
     pool:
       name: Local
       demands:
@@ -26,7 +26,7 @@ stages:
   displayName: 'Upgrade QA'
   jobs:
   - job: dbm_upgrade_qa_cmd
-    displayName: 'DBm Upgrade QA Cmd'
+    displayName: 'QA'
     pool:
       name: Local
       demands:
@@ -34,4 +34,26 @@ stages:
     steps:
       - script: |
           java -jar $(AGENT_PATH) -Upgrade -PackageName $(PACKAGE_NAME) -ProjectName $(PROJECT_NAME) -EnvName QA -Server $(SERVER) -AuthType DBmaestroAccount -Username $(USERNAME) -Password $(PASSWORD)          
+- stage: upgradeUAT
+  # condition: always()
+  displayName: 'Upgrade UAT'
+  jobs:
+  - job: dbm_upgrade_uat1_cmd
+    displayName: 'UAT1'
+    pool:
+      name: Local
+      demands:
+      - agent.name -equals localhostagent
+    steps:
+      - script: |
+          java -jar $(AGENT_PATH) -Upgrade -PackageName $(PACKAGE_NAME) -ProjectName $(PROJECT_NAME) -EnvName UAT1 -Server $(SERVER) -AuthType DBmaestroAccount -Username $(USERNAME) -Password $(PASSWORD)          
+- job: dbm_upgrade_uat2_cmd
+    displayName: 'UAT2'
+    pool:
+      name: Local
+      demands:
+      - agent.name -equals localhostagent
+    steps:
+      - script: |
+          java -jar $(AGENT_PATH) -Upgrade -PackageName $(PACKAGE_NAME) -ProjectName $(PROJECT_NAME) -EnvName UAT2 -Server $(SERVER) -AuthType DBmaestroAccount -Username $(USERNAME) -Password $(PASSWORD)                    
       
