@@ -33,27 +33,4 @@ stages:
       - agent.name -equals localhostagent
     steps:
       - script: |
-          java -jar $(AGENT_PATH) -Upgrade -PackageName $(PACKAGE_NAME) -ProjectName $(PROJECT_NAME) -EnvName QA -Server $(SERVER) -AuthType DBmaestroAccount -Username $(USERNAME) -Password $(PASSWORD)          
-- stage: upgradeUAT
-  # condition: always()
-  displayName: 'Upgrade UAT'
-  jobs:
-  - job: dbm_upgrade_uat1_cmd
-    displayName: 'UAT1'
-    pool:
-      name: Local
-      demands:
-      - agent.name -equals localhostagent
-    steps:
-      - script: |
-          java -jar $(AGENT_PATH) -Upgrade -PackageName $(PACKAGE_NAME) -ProjectName $(PROJECT_NAME) -EnvName UAT1 -Server $(SERVER) -AuthType DBmaestroAccount -Username $(USERNAME) -Password $(PASSWORD)          
-- job: dbm_upgrade_uat2_cmd
-    displayName: 'UAT2'
-    pool:
-      name: Local
-      demands:
-      - agent.name -equals localhostagent
-    steps:
-      - script: |
-          java -jar $(AGENT_PATH) -Upgrade -PackageName $(PACKAGE_NAME) -ProjectName $(PROJECT_NAME) -EnvName UAT2 -Server $(SERVER) -AuthType DBmaestroAccount -Username $(USERNAME) -Password $(PASSWORD)                    
-      
+          java -jar $(AGENT_PATH) -Upgrade -PackageName $(PACKAGE_NAME) -ProjectName $(PROJECT_NAME) -EnvName QA -Server $(SERVER) -AuthType DBmaestroAccount -Username $(USERNAME) -Password $(PASSWORD)
