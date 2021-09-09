@@ -3,9 +3,9 @@ trigger: none
 variables:
   USERNAME: 'poc@dbmaestro.com'
   PASSWORD: 'VmzU9NIDff1BALGXgsh58XXIg89FH7U5'
-  SERVER: 't21-unitil'
+  SERVER: 't21-jc'
   AGENT_PATH: '"C:\\Program Files (x86)\\DBmaestro\\DOP Server\\Agent\\DBmaestroAgent.jar"'
-  PROJECT_NAME: 'MSSQLPOC2'
+  PROJECT_NAME: 'MSSQL_P2'
 
 stages:
 - stage: RollbackRS
