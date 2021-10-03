@@ -14,11 +14,11 @@ variables:
   PROJECT_ACTION: 'precheckAllOneByOne'
 
 stages:
-- stage: packaging
-  displayName: 'PreCheckAll'
+- stage: DryRunAll
+  displayName: 'Dry Run All'
   jobs:
-  - job: zip_package_folder
-    displayName: 'PreCheckAll'
+  - job: PreCheckAll
+    displayName: 'PreCheck All Packages in DryRun Env'
     pool:
       name: Local
       demands:
@@ -26,5 +26,3 @@ stages:
     steps:
       - script: |
           python python-integ-lib\main.py $(SERVER_NAME) $(SERVER_PORT) $(SERVER_USE_SSL) "$(USER_AUTH_TYPE)" $(USER_USERNAME) $(USER_PASSWORD) "$(AGENT_PATH)" "$(PACKAGE_ROOT_FOLDER)" "$(PROJECT_NAME)" "$(PROJECT_RS_ENV_NAME)" $(PROJECT_ACTION)
-
-

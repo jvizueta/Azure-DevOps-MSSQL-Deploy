@@ -36,6 +36,11 @@ class DBmEnvironment:
             found_version = CommonUtils.find_version(package_name)
         logging.info(f"Latest Deployed Version in {self.dbm_project.name}/{self.name} is {found_version}")
         return found_version
+    
+    def upgrade_to_latest_available_package(self):
+        latest_deployed_package_in_rs_env = self.dbm_project.rs_env.get_latest_deployed_package()
+        self.upgrade(latest_deployed_package_in_rs_env)
+
 
     
         

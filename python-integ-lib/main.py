@@ -6,6 +6,7 @@ from DBmAgent import DBmAgent
 from DBmProject import DBmProject
 from DBmPackage import DBmPackage
 from DBmWorkspace import DBmWorkspace
+from DBmEnvironment import DBmEnvironment
 from CommonUtils import CommonUtils
 
 #####################################
@@ -71,7 +72,10 @@ if (dbm_project_action == "precheckAllOneByOne"):
     dbm_project.precheck_all_available_packages_one_by_one()
 elif (dbm_project_action == "releaseSourceAll"):
     dbm_project.upgrade_release_source_with_all_available_packages()
-
+elif (dbm_project_action == "upgradeEnvToLatest"):
+    name = sys.argv[12]
+    dbm_environment = DBmEnvironment(name, dbm_project, dbm_agent)
+    dbm_environment.upgrade_to_latest_available_package()
 
 """
 from DBmUtils import DBmUtils
