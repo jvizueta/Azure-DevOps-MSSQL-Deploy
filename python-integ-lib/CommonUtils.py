@@ -85,6 +85,6 @@ class CommonUtils:
         logging.info(f"Version Folders in '{root_folder}' folder greater than {greater_than}: {version_folders}")
         return version_folders
 
-    def is_version_greater_than(version, greater_than):
-        return version.parse(version) > version.parse(greater_than)
+    def is_version_greater_than(my_version, greater_than):
+        return version.parse(my_version) > version.parse(greater_than)
 
