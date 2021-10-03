@@ -15,10 +15,10 @@ variables:
 
 stages:
 - stage: DryRunAll
-  displayName: 'Dry Run All'
+  displayName: 'DryRun All'
   jobs:
   - job: PreCheckAll
-    displayName: 'PreCheck All Packages in DryRun Env'
+    displayName: 'PreCheck'
     pool:
       name: Local
       demands:

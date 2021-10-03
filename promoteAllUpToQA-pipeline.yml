@@ -13,11 +13,11 @@ variables:
   PROJECT_RS_ENV_NAME: 'RS'
 
 stages:
-- stage: ReleaseSource
-  displayName: 'Release Source All'
+- stage: RS
+  displayName: 'RS All'
   jobs:
   - job: ReleaseSourceAll
-    displayName: 'Upgrade Release Source with all available packages'
+    displayName: 'Upgrade'
     pool:
       name: Local
       demands:
@@ -29,7 +29,7 @@ stages:
   displayName: 'QA All'
   jobs:
   - job: QAAll
-    displayName: 'Upgrade QA up to latest available package in RS'
+    displayName: 'Upgrade'
     pool:
       name: Local
       demands:
