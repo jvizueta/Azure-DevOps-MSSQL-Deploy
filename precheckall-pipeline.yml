@@ -1,22 +1,30 @@
 trigger: none
 
 variables:
-  USERNAME: 'poc@dbmaestro.com'
-  PASSWORD: 'VmzU9NIDff1BALGXgsh58XXIg89FH7U5'
-  SERVER: 't21-jc'
-  AGENT_PATH: '"C:\\Program Files (x86)\\DBmaestro\\DOP Server\\Agent\\DBmaestroAgent.jar"'
-  PROJECT_NAME: 'MSSQLPOC2'
+  SERVER_NAME: 't21-jc'
+  SERVER_PORT: 8017
+  SERVER_USE_SSL: 'n'
+  USER_AUTH_TYPE: 'DBmaestro Account'
+  USER_USERNAME: 'poc@dbmaestro.com'
+  USER_PASSWORD: 'VmzU9NIDff1BALGXgsh58XXIg89FH7U5'
+  AGENT_PATH: 'C:\\Program Files (x86)\\DBmaestro\\DOP Server\\Agent\\DBmaestroAgent.jar'
+  PACKAGE_ROOT_FOLDER: 'versions'
+  PROJECT_NAME: 'MSSQL_P2'
+  PROJECT_RS_ENV_NAME: 'RS'
+  PROJECT_ACTION: 'precheckAllOneByOne'
 
 stages:
 - stage: packaging
-  displayName: 'Packaging'
+  displayName: 'PreCheckAll'
   jobs:
   - job: zip_package_folder
-    displayName: 'Zip Package Folder'
+    displayName: 'PreCheckAll'
     pool:
       name: Local
       demands:
       - agent.name -equals localhostagent
     steps:
       - script: |
-          python python-integ-lib\main.py t21-jc 8017 n "DBmaestro Account" poc@dbmaestro.com VmzU9NIDff1BALGXgsh58XXIg89FH7U5 "C:\\Program Files (x86)\\DBmaestro\\DOP Server\\Agent\\DBmaestroAgent.jar" versions MSSQL_P2 RS precheckAllOneByOne
+          python python-integ-lib\main.py $(SERVER_NAME) $(SERVER_PORT) $(SERVER_USE_SSL) "$(USER_AUTH_TYPE)" $(USER_USERNAME) $(USER_PASSWORD) "$(AGENT_PATH)" "$(PACKAGE_ROOT_FOLDER)" "$(PROJECT_NAME)" "$(PROJECT_RS_ENV_NAME)" $(PROJECT_ACTION)
+
+
