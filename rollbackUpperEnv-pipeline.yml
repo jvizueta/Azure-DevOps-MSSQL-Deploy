@@ -8,17 +8,16 @@ variables:
   PROJECT_NAME: 'MSSQL_P2'
 
 stages:
-- stage: RollbackRS
+- stage: rollback
+  # condition: always()
+  displayName: 'Rollback'
   jobs:
-  - job: RollbackRS
+  - job: go
+    displayName: 'Go'
     pool:
       name: Local
       demands:
-      - agent.name -equals localhostagent  
+      - agent.name -equals localhostagent
     steps:
-    - script: |
-        java -jar $(AGENT_PATH) -Rollback -PackageName $(PACKAGE_NAME) -ProjectName $(PROJECT_NAME) -EnvName QA -Server $(SERVER) -AuthType DBmaestroAccount -Username $(USERNAME) -Password $(PASSWORD)
-      displayName: 'Rollback RS'
-    - script: |
-        java -jar $(AGENT_PATH) -Rollback -PackageName $(PACKAGE_NAME) -ProjectName $(PROJECT_NAME) -EnvName RS -Server $(SERVER) -AuthType DBmaestroAccount -Username $(USERNAME) -Password $(PASSWORD)
-      displayName: 'Rollback RS'      
+      - script: |
+          java -jar $(AGENT_PATH) -Rollback -PackageName $(PACKAGE_NAME) -ProjectName $(PROJECT_NAME) -EnvName $(ENV_NAME) -Server $(SERVER) -AuthType DBmaestroAccount -Username $(USERNAME) -Password $(PASSWORD)

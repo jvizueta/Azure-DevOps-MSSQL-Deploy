@@ -10,27 +10,14 @@ variables:
 stages:
 - stage: upgradeRS
   # condition: always()
-  displayName: 'Upgrade RS'
+  displayName: 'Upgrade PROD'
   jobs:
-  - job: dbm_upgrade_rs_cmd
-    displayName: 'RS'
+  - job: go
+    displayName: 'Go'
     pool:
       name: Local
       demands:
       - agent.name -equals localhostagent
     steps:
       - script: |
-          java -jar $(AGENT_PATH) -Upgrade -PackageName $(PACKAGE_NAME) -ProjectName $(PROJECT_NAME) -EnvName RS -Server $(SERVER) -AuthType DBmaestroAccount -Username $(USERNAME) -Password $(PASSWORD)
-- stage: upgradeQA
-  # condition: always()
-  displayName: 'Upgrade QA'
-  jobs:
-  - job: dbm_upgrade_qa_cmd
-    displayName: 'QA'
-    pool:
-      name: Local
-      demands:
-      - agent.name -equals localhostagent
-    steps:
-      - script: |
-          java -jar $(AGENT_PATH) -Upgrade -PackageName $(PACKAGE_NAME) -ProjectName $(PROJECT_NAME) -EnvName QA -Server $(SERVER) -AuthType DBmaestroAccount -Username $(USERNAME) -Password $(PASSWORD)
+          java -jar $(AGENT_PATH) -Upgrade -PackageName $(PACKAGE_NAME) -ProjectName $(PROJECT_NAME) -EnvName $(ENV_NAME) -Server $(SERVER) -AuthType DBmaestroAccount -Username $(USERNAME) -Password $(PASSWORD)
