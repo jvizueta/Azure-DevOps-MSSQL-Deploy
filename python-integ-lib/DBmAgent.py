@@ -61,6 +61,15 @@ class DBmAgent:
         CommonUtils.run(cmd)
         logging.info(f"UPGRADE END\n")
 
+    def rollback(self, project_name, env_name, package_name):
+        logging.info(f"\n")
+        logging.info(f"ROLLING BACK '{project_name}/{env_name}' ENVIRONMENT TO PACKAGE '{package_name}'")
+        logging.info(f"ROLLBACK START")
+        cmd = f"java -jar \"{self.agent_path}\" -Rollback -ProjectName \"{project_name}\" -EnvName \"{env_name}\" -PackageName {package_name} -Server {self.dbm_server} -AuthType \"{self.dbm_user.auth_type}\" -UserName {self.dbm_user.username} -Password {self.dbm_user.password} -UseSSL {self.dbm_server.use_ssl}"
+        logging.info(f"Cmd: {cmd}")
+        CommonUtils.run(cmd)
+        logging.info(f"ROLLBACK END\n")
+
     ######################################
     # AUTOMATION COMMANDS END
     ######################################

@@ -78,9 +78,13 @@ class CommonUtils:
                 append = True
                 if(greater_than is not None):
                     version_found = CommonUtils.find_version(file.name)
-                    append = version.parse(greater_than) < version.parse(version_found)
+                    append = CommonUtils.is_version_greater_than(version_found, greater_than) 
                 if(append):
                     version_folders.append(file.name)
         version_folders = sorted(version_folders, key=lambda version_folder_name: version.parse(CommonUtils.find_version(version_folder_name)))
         logging.info(f"Version Folders in '{root_folder}' folder greater than {greater_than}: {version_folders}")
         return version_folders
+
+    def is_version_greater_than(version, greater_than):
+        return version.parse(version) > version.parse(greater_than)
+

@@ -13,8 +13,11 @@ class DBmEnvironment:
     def get_packages(self):
         self.dbm_agent.get_env_packages(self.dbm_project.name, self.name, self.package_file_path)
 
-    def upgrade(self, dbm_package_name):
-        self.dbm_agent.upgrade(self.dbm_project.name, self.name, dbm_package_name)
+    def upgrade(self, package_name):
+        self.dbm_agent.upgrade(self.dbm_project.name, self.name, package_name)
+
+    def rollback(self, package_name):
+        self.dbm_agent.rollback(self.dbm_project.name, self.name, package_name)
 
     def get_latest_deployed_package(self):
         self.get_packages()
@@ -40,6 +43,14 @@ class DBmEnvironment:
     def upgrade_to_latest_available_package(self):
         latest_deployed_package_in_rs_env = self.dbm_project.rs_env.get_latest_deployed_package()
         self.upgrade(latest_deployed_package_in_rs_env)
+
+    def move_to_package(self, package_name):
+        package_version = CommonUtils.find_version(package_name)
+        latest_deployed_version = self.get_latest_deployed_version()
+        if(CommonUtils.is_version_greater_than(package_version, latest_deployed_version)):
+            self.upgrade(package_version)
+        else:
+            self.rollback(package_version)
 
 
     
