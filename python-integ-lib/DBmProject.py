@@ -28,10 +28,13 @@ class DBmProject:
 
     def precheck_all_available_packages_one_by_one(self):
         available_package_names = self.get_available_package_names()
+        latest_package = None
         for package_name in available_package_names:
             package = DBmPackage(self, self.dbm_agent, package_name, self.root_folder, None)
             package.create_or_update()
-            package.precheck()
+            latest_package = package
+        if latest_package is not None:
+            latest_package.precheck()
     
     def precheck_all_available_packages_all_in_one(self, dbm_workspace):
         # TO BE IMPLEMENTED
