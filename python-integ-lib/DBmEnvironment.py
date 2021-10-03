@@ -48,9 +48,9 @@ class DBmEnvironment:
         package_version = CommonUtils.find_version(package_name)
         latest_deployed_version = self.get_latest_deployed_version()
         if(CommonUtils.is_version_greater_than(package_version, latest_deployed_version)):
-            self.upgrade(package_version)
+            self.upgrade(package_name)
         else:
-            self.rollback(package_version)
+            self.rollback(package_name)
 
 
     
