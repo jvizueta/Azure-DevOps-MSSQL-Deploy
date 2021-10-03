@@ -1,0 +1,1 @@
+ALTER  TABLE [dbo].[Person] ADD [hobbies] NVARCHAR (50) NULL;
