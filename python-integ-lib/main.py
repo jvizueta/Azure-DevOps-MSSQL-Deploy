@@ -69,9 +69,15 @@ logging.info("Basic objects created")
 
 
 if (dbm_project_action == "precheckAllOneByOne"):
-    dbm_project.precheck_all_available_packages_one_by_one()
+    up_to_version = None
+    if(len(sys.argv) > 12):
+        up_to_version = sys.argv[12]
+    dbm_project.precheck_all_available_packages_one_by_one(up_to_version)
 elif (dbm_project_action == "releaseSourceAll"):
-    dbm_project.upgrade_release_source_with_all_available_packages()
+    up_to_version = None
+    if(len(sys.argv) > 12):
+        up_to_version = sys.argv[12]
+    dbm_project.upgrade_release_source_with_all_available_packages(up_to_version)
 elif (dbm_project_action == "upgradeEnvToLatest"):
     env_name = sys.argv[12]
     dbm_environment = DBmEnvironment(env_name, dbm_project, dbm_agent)
