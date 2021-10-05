@@ -1,0 +1,1 @@
+revoke select on [dbo].Person to public
