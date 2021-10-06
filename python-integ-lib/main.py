@@ -81,7 +81,12 @@ elif (dbm_project_action == "releaseSourceAll"):
 elif (dbm_project_action == "upgradeEnvToLatest"):
     env_name = sys.argv[12]
     dbm_environment = DBmEnvironment(env_name, dbm_project, dbm_agent)
-    dbm_environment.upgrade_to_latest_available_package()
+    if(len(sys.argv) > 13):
+        package_name = sys.argv[13]
+        # missing to change from package_name to up_to_version
+        dbm_environment.upgrade(package_name)
+    else:
+        dbm_environment.upgrade_to_latest_available_package()
 elif (dbm_project_action == "moveEnvToPackage"):
     env_name = sys.argv[12]
     package_name = sys.argv[13]
