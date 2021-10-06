@@ -23,7 +23,6 @@ class DBmAgent:
         logging.info(f"Cmd: {cmd}")
         CommonUtils.run(cmd)
         logging.info(f"CREATEMANIFESTFILE END\n")
-        logging.info(f"\n")
 
     def get_env_packages(self, project_name, env_name, file_path):
         logging.info(f"\n")

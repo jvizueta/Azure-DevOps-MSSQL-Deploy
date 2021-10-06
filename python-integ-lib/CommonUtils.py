@@ -20,6 +20,9 @@ class CommonUtils:
     def powershell(ps_cmd):
         return CommonUtils.run(f"powershell.exe -NonInteractive -ExecutionPolicy Bypass -Command \"$ErrorActionPreference='Stop';[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;{ps_cmd};EXIT $global:LastExitCode\"")
 
+    def ps_replace(file_path, search, replace):
+        CommonUtils.powershell(f"((Get-Content -path {file_path} -Raw) -replace '{search}','{replace}') | Set-Content -Path {file_path}")
+
     def zip(path, destination_path):
         # CommonUtils.print(f"Zipping package folder content ({path})")
         CommonUtils.powershell(f"Compress-Archive -Path {path} -DestinationPath {destination_path} -Force")
