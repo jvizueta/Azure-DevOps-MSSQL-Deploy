@@ -20,7 +20,7 @@ class DBmPackage:
         self.dbm_agent.create_manifest_file(path_to_scripts_folder, operation)
         if(self.type == "adhoc"):
             manifest_file_path = path_to_scripts_folder + "\\package.json"
-            CommonUtils.ps_replace(manifest_file_path, "regular", "adhoc")
+            CommonUtils.ps_replace(manifest_file_path, "\"regular\"", "\"adhoc\"")
             logging.info(f"Package Type in Manifest (package.json file) set to 'adhoc'")
 
     def zip(self):
