@@ -28,6 +28,17 @@ class DBmEnvironment:
                 return keyval['VersionName']
         return None
 
+    def get_version_package_name(self, version_searched):
+        self.get_packages()
+        with open(self.package_file_path) as f:
+            versions = json.load(f)
+        for keyval in versions:
+            package_name = keyval['VersionName']
+            version_found = CommonUtils.find_specific_version(package_name, version_searched)
+            if(version_found):
+                return package_name
+        return None
+
     def increment_latest_deployed_version(self):
         return CommonUtils.increment_version(self.get_latest_deployed_version())
 

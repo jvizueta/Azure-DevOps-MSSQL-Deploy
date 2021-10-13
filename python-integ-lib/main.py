@@ -72,26 +72,33 @@ if (dbm_project_action == "precheckAllOneByOne"):
     up_to_version = None
     if(len(sys.argv) > 12):
         up_to_version = sys.argv[12]
-    dbm_project.precheck_all_available_packages_one_by_one(up_to_version)
+    dbm_project.precheck_all_available_package_folders_one_by_one(up_to_version)
 elif (dbm_project_action == "releaseSourceAll"):
     up_to_version = None
     if(len(sys.argv) > 12):
         up_to_version = sys.argv[12]
-    dbm_project.upgrade_release_source_with_all_available_packages(up_to_version)
-elif (dbm_project_action == "upgradeEnvToLatest"):
+    dbm_project.upgrade_release_source_with_all_available_package_folders(up_to_version)
+elif (dbm_project_action == "upgradeEnvToVersion"):
     env_name = sys.argv[12]
     dbm_environment = DBmEnvironment(env_name, dbm_project, dbm_agent)
     if(len(sys.argv) > 13):
-        package_name = sys.argv[13]
-        # missing to change from package_name to up_to_version
-        dbm_environment.upgrade(package_name)
+        up_to_version = sys.argv[13]
+        package_name = dbm_environment.get_version_package_name(up_to_version)
+        if(package_name is not None):
+            dbm_environment.upgrade(package_name)
+        else:
+            logging.error(f"No package found for version {up_to_version}")
     else:
         dbm_environment.upgrade_to_latest_available_package()
-elif (dbm_project_action == "moveEnvToPackage"):
+elif (dbm_project_action == "moveEnvToVersion"):
     env_name = sys.argv[12]
-    package_name = sys.argv[13]
+    up_to_version = sys.argv[13]
     dbm_environment = DBmEnvironment(env_name, dbm_project, dbm_agent)
-    dbm_environment.move_to_package(package_name)
+    package_name = dbm_environment.get_version_package_name(up_to_version)
+    if(package_name is not None):
+        dbm_environment.move_to_package(package_name)
+    else:
+        logging.error(f"No package found for version {up_to_version}")
 
 """
 from DBmUtils import DBmUtils

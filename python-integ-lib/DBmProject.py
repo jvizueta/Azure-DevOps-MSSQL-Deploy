@@ -15,12 +15,12 @@ class DBmProject:
     def upgrade_release_source(self, package_name):
         self.rs_env.upgrade(package_name)
 
-    def get_available_package_names(self):
+    def get_available_package_folders(self):
         latest_deployed_version = self.rs_env.get_latest_deployed_version()
         return CommonUtils.get_version_folders(self.root_folder, latest_deployed_version)
 
-    def upgrade_release_source_with_all_available_packages(self, up_to_version = None):
-        available_package_names = self.get_available_package_names()
+    def upgrade_release_source_with_all_available_package_folders(self, up_to_version = None):
+        available_package_names = self.get_available_package_folders()
         for package_name in available_package_names:
             package_version = CommonUtils.find_version(package_name)
             if(up_to_version is None or not CommonUtils.is_version_greater_than(package_version, up_to_version)):
@@ -28,8 +28,8 @@ class DBmProject:
                 package.create_or_update()
                 self.rs_env.upgrade(package.name)
 
-    def precheck_all_available_packages_one_by_one(self, up_to_version = None):
-        available_package_names = self.get_available_package_names()
+    def precheck_all_available_package_folders_one_by_one(self, up_to_version = None):
+        available_package_names = self.get_available_package_folders()
         latest_package = None
         for package_name in available_package_names:
             package_version = CommonUtils.find_version(package_name)
