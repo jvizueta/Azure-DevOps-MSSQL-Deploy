@@ -21,12 +21,15 @@ class DBmProject:
 
     def upgrade_release_source_with_all_available_package_folders(self, up_to_version = None):
         available_package_names = self.get_available_package_folders()
+        latest_package = None
         for package_name in available_package_names:
             package_version = CommonUtils.find_version(package_name)
             if(up_to_version is None or not CommonUtils.is_version_greater_than(package_version, up_to_version)):
                 package = DBmPackage(self, self.dbm_agent, package_name, self.root_folder, None)
                 package.create_or_update()
-                self.rs_env.upgrade(package.name)
+                latest_package = package
+        if latest_package is not None:
+            self.rs_env.upgrade(latest_package.name)
 
     def precheck_all_available_package_folders_one_by_one(self, up_to_version = None):
         available_package_names = self.get_available_package_folders()
